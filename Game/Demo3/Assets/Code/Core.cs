@@ -9,27 +9,26 @@ public class Core : MonoBehaviour
         _renderer = GetComponent<MeshRenderer>();
     }
 
-    private void Update()
+    private void OnCollisionEnter(Collision collision)
     {
-        UpdateLerpColor();
+        var damage = collision.gameObject.GetComponent<Bullet>().Damage;
+        SufferDamage(damage);
     }
 
     public void Initialize()
     {
         Hp = MAX_HP;
+        SetMaterial();
     }
 
     public void SufferDamage(float value)
     {
         Hp -= value;
-        
-    }
-
-    private void UpdateLerpColor()
-    {
-        if (!_startLerp) return;
-
-        
+        SetMaterial();
+        if (Hp <= 0)
+        {
+            GameCenter.Instance.GameOver();
+        }
     }
 
     private void SetMaterial()
@@ -38,15 +37,12 @@ public class Core : MonoBehaviour
         var color = _renderer.material.GetColor("_Color");
         color.a = r;
         _renderer.material.SetColor("_Color", color);
-        _startLerp = true;
     }
 
     private float Hp;
+    private float CurrentHp;
     private const float MAX_HP = 100f;
 
     private MeshRenderer _renderer;
     private Color _targetColor;
-    private bool _startLerp;
-    private float _lerpTime;
-    private float _totalLerpTime;
 }
