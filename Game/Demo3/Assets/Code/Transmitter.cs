@@ -93,11 +93,8 @@ public class Transmitter : MonoBehaviour
 
     public void UpgradeDifficulty()
     {
-        if (_interval > 0.1f)
-            _interval -= 0.1f;
-
-        if (_bulletDuration > 0.2f)
-            _bulletDuration -= 0.2f;
+        _interval = _interval - 0.1f < INTERVAL_THRESHOLD ? INTERVAL_THRESHOLD : _interval - 0.1f;
+        _bulletDuration = _bulletDuration - 0.2f < BULLET_DURATION_THRESHOLD ? BULLET_DURATION_THRESHOLD : _bulletDuration - 0.2f;
     }
 
     private List<Bullet> _bulletList = new List<Bullet>();
@@ -114,4 +111,7 @@ public class Transmitter : MonoBehaviour
 
     private const float INTERVAL = 1f;
     private const float BULLET_DURATION = 3f;
+
+    private const float INTERVAL_THRESHOLD = 0.3f;
+    private const float BULLET_DURATION_THRESHOLD = 1f;
 }

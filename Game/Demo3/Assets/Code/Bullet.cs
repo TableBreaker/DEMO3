@@ -6,6 +6,8 @@ public class Bullet : MonoBehaviour
 {
     public void Initialize(MoveData data, Transmitter trans)
     {
+        _hitHandler = GetComponent<HitHandler>();
+        _hitHandler.OnHit += OnHit;
         _selfTransmitter = trans;
         _moveData = data;
         transform.position = _moveData.StartPos;
@@ -18,7 +20,7 @@ public class Bullet : MonoBehaviour
         UpdatePosition();
     }
 
-    private void OnMouseDown()
+    private void OnHit()
     {
         if (!_selfTransmitter)
             return;
@@ -45,6 +47,7 @@ public class Bullet : MonoBehaviour
 
     private Transmitter _selfTransmitter;
     private MoveData _moveData;
+    private HitHandler _hitHandler;
 
     private float _moveTime;
     private int _selfScore = 10;

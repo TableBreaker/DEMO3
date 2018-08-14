@@ -21,9 +21,11 @@ public class GameCenter : MonoBehaviour
     public void AddScore(int score)
     {
         Score += score;
-        if (score % UPDIFFICULTY == 0)
+        if (Score - _lastDifficulty == _upDifficulty)
         {
             _transmitter.UpgradeDifficulty();
+            _upDifficulty += 50;
+            _lastDifficulty = Score;
         }
     }
 
@@ -74,5 +76,6 @@ public class GameCenter : MonoBehaviour
     [SerializeField]
     private Button _restartButton;
 
-    private const int UPDIFFICULTY = 200;
+    private int _upDifficulty = 100;
+    private int _lastDifficulty = 0;
 }
