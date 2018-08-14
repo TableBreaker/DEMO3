@@ -29,9 +29,10 @@ public class HitTest : MonoBehaviour
                 var dir = _currentWorldPos - _lastWorldPos;
                 var distance = dir.magnitude;
                 ray = new Ray(_lastWorldPos, dir);
-                if (Physics.Raycast(ray, out hit, distance))
+                var hits = Physics.RaycastAll(ray, distance);
+                foreach (var ht in hits)
                 {
-                    var handler = hit.collider.GetComponent<HitHandler>();
+                    var handler = ht.collider.GetComponent<HitHandler>();
 
                     // 可能上面已经destroy了
                     handler?.OnHit?.Invoke();

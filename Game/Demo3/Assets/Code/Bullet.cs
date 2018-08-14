@@ -22,11 +22,12 @@ public class Bullet : MonoBehaviour
 
     private void OnHit()
     {
-        if (!_selfTransmitter)
+        if (!_selfTransmitter || _triggered)
             return;
 
         GameCenter.Instance.AddScore(_selfScore);
         _selfTransmitter.EliminateBullet(this);
+        _triggered = true;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -49,6 +50,7 @@ public class Bullet : MonoBehaviour
     private MoveData _moveData;
     private HitHandler _hitHandler;
 
+    private bool _triggered = false;
     private float _moveTime;
     private int _selfScore = 10;
 }
