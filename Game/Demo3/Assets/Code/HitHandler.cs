@@ -5,5 +5,5 @@ using System;
 
 public class HitHandler : MonoBehaviour
 {
-    public Action OnHit;
+    public Action<EHitType> OnHit;
 }

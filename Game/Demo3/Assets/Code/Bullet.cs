@@ -20,7 +20,7 @@ public class Bullet : MonoBehaviour
         UpdatePosition();
     }
 
-    private void OnHit()
+    private void OnHit(EHitType type)
     {
         if (!_selfTransmitter || _triggered)
             return;
