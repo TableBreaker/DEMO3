@@ -21,6 +21,12 @@ public class HitTest : MonoBehaviour
 {
     private void Update()
     {
+        UpdateInput();
+        UpdateClickList();
+    }
+    
+    private void UpdateInput()
+    {
         if (Input.GetMouseButtonUp(0))
         {
             // per frame test
@@ -29,7 +35,17 @@ public class HitTest : MonoBehaviour
             if (Physics.Raycast(ray, out hit))
             {
                 var handler = hit.collider.GetComponent<HitHandler>();
-                handler?.OnHit?.Invoke(EHitType.SingleTouch);
+
+                if (hit.collider.gameObject && Time.time < GetTimeFromList(hit.collider.gameObject) + DOUBLE_CLICK_INTERVAL)
+                {
+                    RemoveFromList(hit.collider.gameObject);
+                    handler?.OnHit?.Invoke(EHitType.DoubleTouch);
+                }
+                else
+                {
+                    handler?.OnHit?.Invoke(EHitType.SingleTouch);
+                    AddToClickList(hit.collider.gameObject);
+                }
             }
 
             _frameCount = 0;
@@ -64,7 +80,69 @@ public class HitTest : MonoBehaviour
             _frameCount++;
         }
     }
-    
+
+    private void UpdateClickList()
+    {
+        for (var i = _singleClickList.Count - 1; i >= 0; i--)
+        {
+            var pair = _singleClickList[i];
+            var time = pair.Key;
+            var go = pair.Value;
+
+            if (Time.time > time + DOUBLE_CLICK_INTERVAL)
+            {
+                _singleClickList.Remove(pair);
+            }
+        }
+    }
+
+    private void AddToClickList(GameObject obj)
+    {
+        if (ContainsObj(obj))
+            return;
+
+        _singleClickList.Add(new KeyValuePair<float, GameObject>(Time.time, obj));
+    }
+
+    private void RemoveFromList(GameObject obj)
+    {
+        KeyValuePair<float, GameObject>? p = null;
+        foreach (var pair in _singleClickList)
+        {
+            if (pair.Value != obj) continue;
+
+            p = pair;
+            break;
+        }
+
+        if (p != null)
+        {
+            _singleClickList.Remove(p.GetValueOrDefault());
+        }
+    }
+
+    private bool ContainsObj(GameObject obj)
+    {
+        foreach (var pair in _singleClickList)
+        {
+            if (pair.Value == obj)
+                return true;
+        }
+
+        return false;
+    }
+
+    private float GetTimeFromList(GameObject obj)
+    {
+        foreach (var pair in _singleClickList)
+        {
+            if (pair.Value == obj)
+                return pair.Key;
+        }
+
+        return -1f;
+    }
+
     private EHitType DirToHitDir(Vector3 dir)
     {
         var angle = Vector3.SignedAngle(dir, Vector3.right, -Vector3.forward);
@@ -75,4 +153,8 @@ public class HitTest : MonoBehaviour
     private Vector3 _lastFramePos;
     private Vector3 _currentFramePos;
     private int _frameCount = 0;
+
+    private List<KeyValuePair<float, GameObject>> _singleClickList = new List<KeyValuePair<float, GameObject>>();
+
+    private const float DOUBLE_CLICK_INTERVAL = 0.3f;
 }

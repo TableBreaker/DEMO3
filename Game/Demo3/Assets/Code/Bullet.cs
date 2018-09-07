@@ -25,6 +25,8 @@ public class Bullet : MonoBehaviour
         if (!_selfTransmitter || _triggered)
             return;
 
+        Debug.Log(type);
+        return;
         GameCenter.Instance.AddScore(_selfScore);
         _selfTransmitter.EliminateBullet(this);
         _triggered = true;
