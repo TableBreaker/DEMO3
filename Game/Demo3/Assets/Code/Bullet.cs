@@ -25,8 +25,9 @@ public class Bullet : MonoBehaviour
         if (!_selfTransmitter || _triggered)
             return;
 
-        Debug.Log(type);
-        return;
+        if (type != HitType)
+            return;
+
         GameCenter.Instance.AddScore(_selfScore);
         _selfTransmitter.EliminateBullet(this);
         _triggered = true;
@@ -46,6 +47,7 @@ public class Bullet : MonoBehaviour
         _moveTime += Time.deltaTime;
     }
 
+    public EHitType HitType;
     public float Damage { get; private set; }
 
     private Transmitter _selfTransmitter;

@@ -8,6 +8,7 @@ public class GameCenter : MonoBehaviour
     private void Awake()
     {
         Screen.SetResolution(1600, 900, false);
+        Application.targetFrameRate = 60;
 
         Instance = this;
         _restartButton.onClick.AddListener(GameStart);
