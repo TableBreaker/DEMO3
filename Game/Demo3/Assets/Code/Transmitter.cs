@@ -74,7 +74,9 @@ public class Transmitter : MonoBehaviour
                 return;
         }
 
-        var bullet = Instantiate(_bulletPrefab, spawnPos, Quaternion.identity).GetComponent<Bullet>();
+        var ranEDir = (EHitType)UnityEngine.Random.Range(0, 10);
+        var bulletPrefab = GetPrefab(ranEDir);
+        var bullet = Instantiate(bulletPrefab, spawnPos, bulletPrefab.transform.rotation).GetComponent<Bullet>();
         var moveData = new MoveData
         {
             StartPos = spawnPos,
@@ -97,6 +99,36 @@ public class Transmitter : MonoBehaviour
         _bulletDuration = _bulletDuration - 0.2f < BULLET_DURATION_THRESHOLD ? BULLET_DURATION_THRESHOLD : _bulletDuration - 0.2f;
     }
 
+    private GameObject GetPrefab(EHitType type)
+    {
+        switch (type)
+        {
+            case EHitType.BottomLeftTopRight:
+                return _bottomLeftTopRightPrefab;
+            case EHitType.BottomRightTopLeft:
+                return _bottomRightTopLeftPrefab;
+            case EHitType.BottomTop:
+                return _bottomTopPrefab;
+            case EHitType.DoubleTouch:
+                return _doubleTouchPrefab;
+            case EHitType.LeftRight:
+                return _leftRightPrefab;
+            case EHitType.RightLeft:
+                return _rightLeftPrefab;
+            case EHitType.SingleTouch:
+                return _singleTouchPrefab;
+            case EHitType.TopBottom:
+                return _topBottomPrefab;
+            case EHitType.TopLeftBottomRight:
+                return _topLeftBottomRightPrefab;
+            case EHitType.TopRightBottomLeft:
+                return _topRightBottomLeftPrefab;
+            default:
+                return null;
+        }
+    }
+
+
     private List<Bullet> _bulletList = new List<Bullet>();
     private bool _init;
     private float _currentTime;
@@ -107,7 +139,26 @@ public class Transmitter : MonoBehaviour
     private Vector3 _topRight;
 
     [SerializeField]
-    private GameObject _bulletPrefab;
+    private GameObject _leftRightPrefab;
+    [SerializeField]
+    private GameObject _rightLeftPrefab;
+    [SerializeField]
+    private GameObject _bottomTopPrefab;
+    [SerializeField]
+    private GameObject _topBottomPrefab;
+    [SerializeField]
+    private GameObject _topLeftBottomRightPrefab;
+    [SerializeField]
+    private GameObject _topRightBottomLeftPrefab;
+    [SerializeField]
+    private GameObject _bottomLeftTopRightPrefab;
+    [SerializeField]
+    private GameObject _bottomRightTopLeftPrefab;
+    [SerializeField]
+    private GameObject _singleTouchPrefab;
+    [SerializeField]
+    private GameObject _doubleTouchPrefab;
+
 
     private const float INTERVAL = 1f;
     private const float BULLET_DURATION = 3f;

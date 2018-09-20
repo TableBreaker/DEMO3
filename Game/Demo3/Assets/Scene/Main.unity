@@ -483,7 +483,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1010585537}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 239, z: 0}
+  m_LocalPosition: {x: 0, y: 265, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1747366895}
@@ -634,7 +634,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a003a47f9cfded447a8e85d619e4152e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bulletPrefab: {fileID: 1003931637102152, guid: a1ebf406be7985c4891147ebce834fc3,
+  _leftRightPrefab: {fileID: 1266658847815916, guid: 8e52ad732758b314e8eda274eb9514f6,
+    type: 2}
+  _rightLeftPrefab: {fileID: 1430499593931068, guid: 760520c25eeb7854b9e88e961ae74e21,
+    type: 2}
+  _bottomTopPrefab: {fileID: 1788205483665654, guid: cc686dbed367b124585f32800e66f427,
+    type: 2}
+  _topBottomPrefab: {fileID: 1975327322682674, guid: 5f22473a355c5724986d3beb56ccecb5,
+    type: 2}
+  _topLeftBottomRightPrefab: {fileID: 1133089625838878, guid: 88d23c537cae72e489e4d30d90709310,
+    type: 2}
+  _topRightBottomLeftPrefab: {fileID: 1480555829285916, guid: ac3d6f96e92b5c149b4d6ffad90b2d6d,
+    type: 2}
+  _bottomLeftTopRightPrefab: {fileID: 1072522554623038, guid: 97340211b169da04fa2f5eefcf4f97ed,
+    type: 2}
+  _bottomRightTopLeftPrefab: {fileID: 1366925168560738, guid: f5e9c6aebdc6b6e4aac1a85b8267025f,
+    type: 2}
+  _singleTouchPrefab: {fileID: 1820401141326730, guid: ccf2fbc853fde374baddce28d9b93cad,
+    type: 2}
+  _doubleTouchPrefab: {fileID: 1793876149188444, guid: c1b56da93e79a7a458a683b74bb828ff,
     type: 2}
 --- !u!4 &1415771998
 Transform:
@@ -806,7 +824,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1747366894}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 565.5, y: 298, z: 0}
+  m_LocalPosition: {x: 652.5, y: 324, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1010585538}

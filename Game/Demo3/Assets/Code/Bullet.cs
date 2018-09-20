@@ -6,8 +6,6 @@ public class Bullet : MonoBehaviour
 {
     public void Initialize(MoveData data, Transmitter trans)
     {
-        BulletHitType = (EHitType)UnityEngine.Random.Range(0, 10);
-
         _hitHandler = GetComponent<HitHandler>();
         _hitHandler.OnHit += OnHit;
         _selfTransmitter = trans;
@@ -24,7 +22,10 @@ public class Bullet : MonoBehaviour
 
     private void OnHit(EHitType type)
     {
-        if (!_selfTransmitter || _triggered || type != BulletHitType)
+        if (!_selfTransmitter || _triggered)
+            return;
+
+        if (type != HitType)
             return;
 
         GameCenter.Instance.AddScore(_selfScore);
@@ -46,9 +47,8 @@ public class Bullet : MonoBehaviour
         _moveTime += Time.deltaTime;
     }
 
+    public EHitType HitType;
     public float Damage { get; private set; }
-
-    public EHitType BulletHitType;
 
     private Transmitter _selfTransmitter;
     private MoveData _moveData;
