@@ -156,5 +156,5 @@ public class HitTest : MonoBehaviour
 
     private List<KeyValuePair<float, GameObject>> _singleClickList = new List<KeyValuePair<float, GameObject>>();
 
-    private const float DOUBLE_CLICK_INTERVAL = 0.3f;
+    private const float DOUBLE_CLICK_INTERVAL = 0.5f;
 }

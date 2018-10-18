@@ -6,7 +6,7 @@ public class Core : MonoBehaviour
 {
     private void Awake()
     {
-        _renderer = GetComponent<MeshRenderer>();
+//         _renderer = GetComponent<MeshRenderer>();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -18,30 +18,30 @@ public class Core : MonoBehaviour
     public void Initialize()
     {
         Hp = MAX_HP;
-        SetMaterial();
+//         SetMaterial();
     }
 
     public void SufferDamage(float value)
     {
         Hp -= value;
-        SetMaterial();
+//         SetMaterial();
         if (Hp <= 0)
         {
             GameCenter.Instance.GameOver();
         }
     }
 
-    private void SetMaterial()
-    {
-        var r = Hp / MAX_HP * 0.7f + 0.3f;
-        var color = _renderer.material.GetColor("_Color");
-        color.a = r;
-        _renderer.material.SetColor("_Color", color);
-    }
+//     private void SetMaterial()
+//     {
+//         var r = Hp / MAX_HP * 0.7f + 0.3f;
+//         var color = _renderer.material.GetColor("_Color");
+//         color.a = r;
+//         _renderer.material.SetColor("_Color", color);
+//     }
 
     private float Hp;
     private float CurrentHp;
-    private const float MAX_HP = 100f;
+    private const float MAX_HP = 30f;
 
     private MeshRenderer _renderer;
     private Color _targetColor;
